@@ -37,7 +37,7 @@ if [ "$1" == "i" ]; then
         # add the script to crontab every 6 hours
         (
             crontab -l
-            echo "0 */6 * * * $DESTINATION_FOLDER/clean.sh > $LOG_file 2>&1"
+            echo "0 */6 * * * $DESTINATION_FOLDER/clean.sh > $LOG_FILE 2>&1"
         ) | crontab -
 
     else
