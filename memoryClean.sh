@@ -10,6 +10,13 @@ echo "clean script installer"
 
 DESTINATION_FOLDER="/usr/bin/clean"
 
+LOG_FILE="/var/log/memoryClean.log"
+
+# function to write log to /var/log/memoryClean.log file with datetime and message
+log() {
+    echo "$(date) - $1" >>$LOG_FILE
+}
+
 # check received parameters i o u
 if [ "$1" == "i" ]; then
     # install
@@ -30,7 +37,7 @@ if [ "$1" == "i" ]; then
         # add the script to crontab every 6 hours
         (
             crontab -l
-            echo "0 */6 * * * $DESTINATION_FOLDER/clean.sh"
+            echo "0 */6 * * * $DESTINATION_FOLDER/clean.sh > $LOG_file 2>&1"
         ) | crontab -
 
     else
@@ -50,8 +57,3 @@ elif [ "$1" == "u" ]; then
 else
     echo "invalid action, use i for install or u for uninstall"
 fi
-
-# function to write log to /var/log/memoryClean.log file with datetime and message
-function log() {
-    echo "$(date) - $1" >>/var/log/memoryClean.log
-}
