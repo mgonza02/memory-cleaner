@@ -15,8 +15,8 @@ LOG_FILE="/var/log/memoryClean.log"
 # function to write log to /var/log/memoryClean.log file with datetime and message
 log() {
     # echo  date - hostname - message
-    echo "$(date) - $(hostname) - $1" >>$LOG_FILE
-
+    # format date as 2021-08-01 12:00:00
+    echo "$(date +'%Y-%m-%d %H:%M:%S') - $(hostname) - $1" >>$LOG_FILE
 }
 
 # check received parameters i o u
