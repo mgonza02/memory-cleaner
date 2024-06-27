@@ -13,7 +13,7 @@ DESTINATION_FOLDER="/usr/bin/clean"
 # check received parameters i o u
 if [ "$1" == "i" ]; then
     # install
-    echo "installing..."
+    log "installing..."
 
     CLEAN_SCRIPT="sync && echo 3 > /proc/sys/vm/drop_caches"
 
@@ -33,16 +33,25 @@ if [ "$1" == "i" ]; then
             echo "0 */6 * * * $DESTINATION_FOLDER/clean.sh"
         ) | crontab -
 
+    else
+        log "clean.sh already defined in crontab"
     fi
     # print done
-    echo "done"
+    log "done"
 elif [ "$1" == "u" ]; then
     # uninstall
-    echo "uninstalling..."
+    log "uninstalling..."
     # uninstall from crontab
     crontab -l | grep -v "clean.sh" | crontab -
     # remove the folder
     rm -rf $DESTINATION_FOLDER
+    # log done
+    log "done"
 else
     echo "invalid action, use i for install or u for uninstall"
 fi
+
+# function to write log to /var/log/memoryClean.log file with datetime and message
+function log() {
+    echo "$(date) - $1" >>/var/log/memoryClean.log
+}

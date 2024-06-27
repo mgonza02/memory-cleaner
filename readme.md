@@ -17,5 +17,5 @@ chmod +x memoryClean.sh
 
 - Install
 ```
-memoryClean.sh i
+./memoryClean.sh i
 ```
