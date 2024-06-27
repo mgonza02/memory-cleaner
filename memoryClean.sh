@@ -14,15 +14,16 @@ LOG_FILE="/var/log/memoryClean.log"
 
 # function to write log to /var/log/memoryClean.log file with datetime and message
 log() {
-    echo "$(date) - $1" >>$LOG_FILE
+    # echo  date - hostname - message
+    echo "$(date) - $(hostname) - $1" >>$LOG_FILE
+
 }
 
 # check received parameters i o u
 if [ "$1" == "i" ]; then
     # install
     log "installing..."
-
-    CLEAN_SCRIPT="sync && echo 3 > /proc/sys/vm/drop_caches"
+    CLEAN_SCRIPT="sync && echo 3 > /proc/sys/vm/drop_caches && echo $(date) - $(hostname) - memory cleaned >>$LOG_FILE"
 
     # create  destination folder
     mkdir -p $DESTINATION_FOLDER
